@@ -21,6 +21,12 @@ describe('highlight', function () {
     it('should work correctly for number text', function () {
       expect(highlightFilter(3210123, '0')).toEqual('321<span class="ui-match">0</span>123');
     });
+    it('should work correctly for text with special characters', function () {
+      expect(highlightFilter('js+angular@gmail.com', 'js+')).toEqual('<span class="ui-match">js+</span>angular@gmail.com');
+    });
+    it('should work correctly for text with special characters', function () {
+      expect(highlightFilter('js+angular@gmail.com', 's+a')).toEqual('j<span class="ui-match">s+a</span>ngular@gmail.com');
+    });
   });
   describe('case sensitive', function () {
     it('should highlight a matching phrase', function () {
@@ -40,6 +46,12 @@ describe('highlight', function () {
     });
     it('should not highlight a phrase with different letter-casing', function () {
       expect(highlightFilter(testPhrase, 'highlight', true)).toEqual(testPhrase);
+    });
+    it('should work correctly for text with special characters', function () {
+      expect(highlightFilter('js+angular@gmail.com', 'js+', true)).toEqual('<span class="ui-match">js+</span>angular@gmail.com');
+    });
+    it('should work correctly for text with special characters', function () {
+      expect(highlightFilter('js+angular@gmail.com', 's+a', true)).toEqual('j<span class="ui-match">s+a</span>ngular@gmail.com');
     });
   });
   it('should highlight nothing if empty filter string passed - issue #114', function () {
